@@ -1,0 +1,194 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// =========================================================
+// CONFIGURAÇÕES DO SISTEMA (tabela nova, criada pelo Prisma)
+// =========================================================
+model Configuracoes {
+  id                Int     @id @default(1)
+  nome_empresa      String  @default("SaaS Elo Gestão")
+  cor_primaria      String  @default("#026232")
+  cor_secundaria    String  @default("#00542A")
+  logo_url          String?
+  conta_asaas_ativa Int     @default(1)
+}
+
+// =========================================================
+// OPERACIONAL — tabelas já existentes no banco
+// =========================================================
+
+model MetasGclick {
+  id              Int    @id @default(autoincrement())
+  obrigacao       String @unique
+  meta_percentual Float  @default(100)
+  valor_atual     Float  @default(0)
+  prazo_dias      Int    @default(30)
+  escopo          String @default("Empresa")
+
+  @@map("metas_gclick")
+}
+
+// indicadores_zappy usa estrutura legada:
+// ticket_id = 'MENSAGENS_YYYY-MM', cliente = total msgs, atendente = média
+model IndicadoresZappy {
+  id        Int    @id @default(autoincrement())
+  ticket_id String @unique
+  status    String @default("LOG_MENSAL")
+  cliente   String @default("0")   // armazena total_mensagens como string
+  atendente String @default("0.0") // armazena media_por_atendente como string
+
+  @@map("indicadores_zappy")
+}
+
+// =========================================================
+// KPIs
+// =========================================================
+
+model KpiEstrategico {
+  id        Int    @id @default(autoincrement())
+  indicador String
+  mes       String
+  meta      Float  @default(0)
+  realizado Float  @default(0)
+
+  @@unique([indicador, mes])
+  @@map("kpis_estrategicos")
+}
+
+model KpiSetorial {
+  id        Int    @id @default(autoincrement())
+  setor     String
+  indicador String
+  mes       String
+  meta      Float  @default(0)
+  realizado Float  @default(0)
+
+  @@unique([setor, indicador, mes])
+  @@map("kpis_setoriais")
+}
+
+// =========================================================
+// ESTRATÉGIA
+// =========================================================
+
+model IdentidadeOrganizacional {
+  id     Int    @id @default(1)
+  ano    Int    @default(2026)
+  missao String @default("")
+  visao  String @default("")
+  valores String @default("")
+
+  @@map("identidade_organizacional")
+}
+
+model AnaliseSwot {
+  id        Int    @id @default(autoincrement())
+  categoria String
+  descricao String
+
+  @@map("analise_swot")
+}
+
+model MatrizRisco {
+  id                Int    @id @default(autoincrement())
+  risco             String
+  probabilidade     String
+  medidas_redutoras String
+  medidas_exposicao String
+
+  @@map("matriz_risco")
+}
+
+model RaioXVisao {
+  id          Int   @id @default(1)
+  faturamento Float @default(0)
+  meses       Int   @default(12)
+  clientes    Int   @default(0)
+
+  @@map("raiox_visao")
+}
+
+model RaioXProduto {
+  id          Int    @id @default(autoincrement())
+  nome        String
+  faturamento Float  @default(0)
+  vendas      Int    @default(0)
+
+  @@map("raiox_produtos")
+}
+
+model MetasGerais {
+  id               Int    @id @default(1)
+  objetivo         String @default("")
+  meta_faturamento Float  @default(0)
+  meta_lucro       Float  @default(0)
+
+  @@map("metas_gerais")
+}
+
+model MetasProduto {
+  id          Int    @id @default(autoincrement())
+  nome        String
+  faturamento Float  @default(0)
+  ticket      Float  @default(0)
+  clientes    Int    @default(0)
+
+  @@map("metas_produtos")
+}
+
+model MetasCanal {
+  id         Int    @id @default(autoincrement())
+  canal      String
+  meta_anual Float  @default(0)
+
+  @@map("metas_canais")
+}
+
+// quando_prazo no Prisma → coluna "quando" no banco
+model Objetivo5W2H {
+  id           Int    @id @default(autoincrement())
+  o_que        String
+  quem         String
+  quando_prazo String @map("quando")
+  onde         String
+  como         String
+  indicador    String
+  meta         String
+  realizado    String @default("")
+
+  @@map("objetivos_5w2h")
+}
+
+model DiretrizEstrategica {
+  id         Int    @id @default(autoincrement())
+  macro_area String
+  sub_area   String
+  acao       String
+  status     String @default("Pendente")
+
+  @@map("diretrizes_estrategicas")
+}
+
+model AgendaImpacto {
+  id          Int    @id @default(autoincrement())
+  evento      String
+  data_evento String
+  tipo        String
+
+  @@map("agenda_impacto")
+}
+
+
+model ChavePix {
+  id        Int      @id @default(autoincrement())
+  apelido   String
+  chave     String
+  tipo      String
+  criado_em DateTime @default(now())
+}
