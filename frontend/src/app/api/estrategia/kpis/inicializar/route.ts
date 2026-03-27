@@ -4,6 +4,8 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
+export const dynamic = 'force-dynamic';
+
 const MESES = ["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"];
 const INDICADORES = ["Faturamento","Recebimentos","Custos e Despesas","Lucro Líquido"];
 

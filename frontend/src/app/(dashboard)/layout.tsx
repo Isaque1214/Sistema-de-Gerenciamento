@@ -2,6 +2,8 @@ import { prisma } from '@/lib/prisma';
 import Sidebar from '@/components/layout/Sidebar';
 import Header from '@/components/layout/Header';
 
+export const dynamic = 'force-dynamic';
+
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   const config = await prisma.configuracoes.upsert({
     where: { id: 1 },

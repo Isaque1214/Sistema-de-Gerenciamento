@@ -7,6 +7,8 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
+export const dynamic = 'force-dynamic';
+
 // LER METAS GERAIS (GET)
 export async function GET() {
   try {

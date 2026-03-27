@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 
 import { prisma } from '@/lib/prisma';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
   
   const [gerais, produtos, canais, w2h] = await Promise.all([
