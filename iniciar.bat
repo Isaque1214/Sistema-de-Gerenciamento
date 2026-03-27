@@ -20,7 +20,7 @@ if %errorlevel% neq 0 (
 )
 
 echo [1/3] Iniciando o backend Python (FastAPI na porta 5050)...
-start "EloGestao Backend" cmd /k "cd backend && pip install -r requirements.txt -q && python -m uvicorn main:app --reload --port 5050"
+start "EloGestao Backend" cmd /k "cd backend && pip install -r requirements.txt -q && python -m uvicorn main:app --reload --port 8000"
 
 echo [2/3] Aguardando backend iniciar...
 timeout /t 5 /nobreak >nul
@@ -33,12 +33,12 @@ echo Aguardando o sistema iniciar (15 segundos)...
 timeout /t 15 /nobreak >nul
 
 echo Abrindo o navegador...
-start http://192.168.0.17:3000
+start http://localhost:3000
 
 echo.
 echo  Sistema rodando!
-echo  Frontend:  http://192.168.0.17:3000
-echo  Backend:   http://192.168.0.17:5050
-echo  Docs API:  http://192.168.0.17:5050/docs
+echo  Frontend:  http://localhost:3000
+echo  Backend:   http://localhost:8000
+echo  Docs API:  http://localhost:8000/docs
 echo.
 pause

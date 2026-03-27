@@ -20,7 +20,7 @@ fi
 echo "[1/3] Iniciando o backend Python (FastAPI)..."
 cd backend
 pip3 install -r requirements.txt -q
-python3 -m uvicorn main:app --reload --port 5050 &
+python3 -m uvicorn main:app --reload --port 8000 &
 BACKEND_PID=$!
 cd ..
 
@@ -39,16 +39,16 @@ sleep 12
 
 echo "Abrindo o navegador..."
 if command -v xdg-open &> /dev/null; then
-    xdg-open http://192.168.0.17:3000    # Linux
+    xdg-open http://localhost:3000    # Linux
 elif command -v open &> /dev/null; then
-    open http://192.168.0.17:3000         # Mac
+    open http://localhost:3000         # Mac
 fi
 
 echo ""
 echo " Sistema rodando!"
-echo " Frontend: http://192.168.0.17:3000"
-echo " Backend API: http://192.168.0.17:5050"
-echo " Docs da API: http://192.168.0.17:5050/docs"
+echo " Frontend: http://localhost:3000"
+echo " Backend API: http://localhost:8000"
+echo " Docs da API: http://localhost:8000/docs"
 echo ""
 echo " Pressione Ctrl+C para encerrar tudo."
 echo ""

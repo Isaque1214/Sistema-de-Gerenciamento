@@ -12,7 +12,7 @@ from models.asaas_models import (
 from services import asaas_service
 
 
-DB_PATH = os.path.join(os.path.dirname(__file__), "..","..", "frontend", "prisma", "dev.db")
+DB_PATH = os.getenv("SQLITE_DB_PATH", "sistema_estrategico.db")
 
 router = APIRouter(prefix="/api/financeiro", tags=["Financeiro (Asaas)"])
 

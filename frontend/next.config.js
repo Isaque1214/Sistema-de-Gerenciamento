@@ -2,12 +2,12 @@
 const nextConfig = {
   poweredByHeader: false,
 
-  // Redireciona /backend/* para o FastAPI sem o frontend precisar saber a porta
+  // Redireciona /api/* para o FastAPI sem o frontend precisar saber a porta
   async rewrites() {
     return [
       {
-        source: '/backend/:path*',
-        destination: 'http://192.168.0.17:5050/:path*',
+        source: '/api/:path*',
+        destination: `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/:path*`,
       },
     ];
   },
@@ -23,7 +23,7 @@ const nextConfig = {
   },
 
   env: {
-    BACKEND_URL: process.env.BACKEND_URL || 'http://192.168.0.17:5050',
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000',
   },
 };
 
