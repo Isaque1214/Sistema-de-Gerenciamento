@@ -6,6 +6,9 @@ export function useZappy() {
     Total_Absoluto: 0,
     Colaboradores: 0,
     Mensagens_Por_Colaborador: 0,
+    Total_Jupiter: 0,
+    Total_Outras_Conexoes: 0,
+    Tempo_Primeira_Resposta_seg: 0,
   });
   const [loading, setLoading] = useState(false);
   const [erro, setErro] = useState<string | null>(null);
